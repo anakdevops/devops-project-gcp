@@ -3,18 +3,18 @@
 ```
 instance_internal_ips = [
   "10.0.0.3",
-  "10.0.0.2",
+  "10.0.0.4",
 ]
 instance_ips = [
-  "34.68.131.157",
-  "35.202.95.97",
+  "35.232.157.57",
+  "35.193.165.72",
 ]
 ```
 
 # Single Node | RKE v1.6.1 | Rancher 2.9 | Kubernetes v1.29.7
 
 ```
-ssh -i rancher-multinode/rancher-key.pem rancher@34.68.131.157
+ssh -i rancher-multinode/rancher-key.pem rancher@35.232.157.57
 ```
 
 
@@ -23,7 +23,7 @@ sudo su
 cat /home/serverdevops/cluster.yml
 su serverdevops
 cat /home/serverdevops/.ssh/id_rsa.pub
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDFaATFGYWAn8tfTRUOFonNHG7v+h36xU7gz0/0uiXxaiIT7LTiE2i81VdjujZKhS3yqReHnyHK7hOG9TPmQC68cxDLcflddzowpgGE9WZT+maUG+SG81N5csMuilAxy+WVtRN7p9D1uBS8YCJ1V3rUeOX+26GZvN7SkfNzwDvuogRcLxCnjJYw0mHeg3cMo7b+CViog49B5Io0nGGPIlQJXW4TSHBUn9OfTdDUCStkfUoeidkrynUVENJtNwkzhrH1Z33yFTIdMGlCdAmHGEpeeqewvherE+EAhT0NMUNgJZi8FzzTgyHqi8YcV7AikJ06fJ/ghRlgFU6pXN87Ep7/ ansible-generated on rancher-node-1" >> ~/.ssh/authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC80QIWUm23u47pB6hyDxCRWPsm1O8vG1oODjqjW3TOkn9u9/GxOSHTHfTBk/2S1GQnY0PPgVNJ8n7txSa4Q+w840IRAplSSxfIIXYQUUazX1e28tlEF9C49YWFe19DmSEoQYnym2SWf2td/aXCQ5eb/JliltLQfFE6h+olF4RDPqSGmq8UMydaGgBDJLYE9s1F4Vo5NSLAbmhjNbiXf3oEInAaR0BghAcLdj+C3WbNeFb9hga+IyzdfwamN9IwfkTMxLD8JAII8ydNHJG2pap7zgkFXLGV/Rcp5nDNXggN1pH3MCuk0UoBroae94HTlkP7yUJ+S55WZVjpwPZOgOlP ansible-generated on rancher-node-1" >> ~/.ssh/authorized_keys
 ssh serverdevops@10.0.0.3 # tes ssh
 ```
 
@@ -46,35 +46,45 @@ helm install cert-manager jetstack/cert-manager --namespace cert-manager --creat
 helm install rancher rancher-latest/rancher --namespace cattle-system --set hostname=ranchergcp.anakdevops.online
 helm list --namespace cattle-system
 kubectl -n cattle-system get deploy rancher
-kubectl scale --replicas=1 deployment rancher -n cattle-system #scale down
-kubectl -n cattle-system get deploy rancher -w
 ```
+![image](../status1.png)
+![image](../status2.png)
+
 ![image](../node1.png)
 
 
+```
+AnakDevOpsMenyala17
+```
 
 # Add Worker Node | RKE v1.6.1 | Rancher 2.9 | upgrade Kubernetes v1.29.7 to v1.30.3
 
 ```
 instance_internal_ips = [
   "10.0.0.3",
-  "10.0.0.2",
+  "10.0.0.4",
 ]
 instance_ips = [
-  "34.68.131.157",
-  "35.202.95.97",
+  "35.232.157.57",
+  "35.193.165.72",
 ]
 ```
 
 ```
-ssh -i rancher-multinode/rancher-key.pem rancher@35.202.95.97
+ssh -i rancher-multinode/rancher-key.pem rancher@35.193.165.72
 sudo su
 su serverdevops
 cat /home/serverdevops/.ssh/id_rsa.pub
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCbeUyswaHpbMtuTQzVjX2fByEEY8Mh3p6OQ5Do2G1NAaRQZXS8dWlyStmEv/LLD0kWpLpHMrThVhS70WjRrCmGq4vr0+sehtqt6s9nLVaNBHGsjL8Nb0BmbNHF9njW2fr/QhvfvbYFratnelhP0eCkhrit4C7p+TEDvlsGpxclcQr0zqNJl8RQXjVtDAHdROIeiKvYyOR7yLjvbT77vsifaS0rQ48QPVirUvz/5DOBUZDEx7Gcv0Fu+8qA+qwyEa5B3GoblDDvR1xvDEM+d+OeZYh39vWlrbPp0i7HUj2YaCe7E6fjUO4dYI+3RIhpaRF4ayEklWg0HegBk3GmuIs1 ansible-generated on rancher-node-2" >> ~/.ssh/authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCh9pehJuT/3ch+f5jnc2DxF9RVFmoHNMQ0eeA26IOXgYM0YtbUKwCs+/fryJTUoiqHjijl7SEOheynKuoDakmsKTNpEFJNRd7FJHH66sn+KvWahUYGtqAt2ysXywezyRNm6oOkeU1ZhNonriIbb8bx/M+K+BW+pdotOB7LanCr07a+v/UWhiIiU/9LDjXZBSlD79IBTrlyKT+BbpD0Bv/U2C5HI17UQn0aCuNy4zmzC38Lm/CSMVEa8FQL8Dq2Lb45j4R4G8yYW9fQvFAcdBBH1pIU/8aMSeSs4WHSsm7/dMJ1MVfSww07OLMnLDfm+4VjUffz3DnNjslHCeDQ8kfd ansible-generated on rancher-node-2" >> ~/.ssh/authorized_keys
 ssh serverdevops@10.0.0.3 # node 1
-ssh serverdevops@10.0.0.2 # node 2
+ssh serverdevops@10.0.0.4 # node 2
 rke config --list-version --all #cek kubernetes version
+
+v1.27.16-rancher1-1
+v1.29.7-rancher1-1
+v1.28.12-rancher1-1
+v1.30.3-rancher1-1
+
 cd /home/serverdevops/
 nano cluster.yml #Add IP Node 2
 cat cluster.yml #pastikan sudah sesuai

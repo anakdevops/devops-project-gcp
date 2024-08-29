@@ -6,6 +6,11 @@ Network Management Admin
 ![image](serviceaccount.png)
 
 
+# Domain Management
+
+
+![image](inputdomain.png)
+
 ```
 pastikan sudah mendownload credential .json
 ```
@@ -34,3 +39,5 @@ sudo openssl req -new -key jenkins.anakdevops.online.key -out jenkins.anakdevops
 sudo openssl x509 -req -days 365 -in jenkins.anakdevops.online.csr -signkey jenkins.anakdevops.online.key -out jenkins.anakdevops.online.crt
 sudo openssl x509 -in jenkins.anakdevops.online.crt -text -noout
 ```
+
+[def]: inputdoamin.png
