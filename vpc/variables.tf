@@ -16,11 +16,11 @@ variable "credentials_file" {
 
 
 variable "vpc_name" {
-  default = "anakdevops-vpc"
+  default = "vpc-anakdevops"
 }
 
 variable "subnet_name" {
-  default = "anakdevops-subnet"
+  default = "sub-anakdevops"
 }
 
 variable "cidr_range" {
