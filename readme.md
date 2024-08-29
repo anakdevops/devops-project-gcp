@@ -40,4 +40,33 @@ sudo openssl x509 -req -days 365 -in jenkins.anakdevops.online.csr -signkey jenk
 sudo openssl x509 -in jenkins.anakdevops.online.crt -text -noout
 ```
 
-[def]: inputdoamin.png
+# ARGOCD
+
+```
+# values.yaml
+controller:
+  replicaCount: 2
+
+server:
+  replicaCount: 2
+  service:
+    type: LoadBalancer
+
+redis:
+  replicaCount: 2
+  sentinel:
+    enabled: true
+
+dex:
+  replicaCount: 2
+```
+
+
+```
+helm repo add argo https://argoproj.github.io/argo-helm
+helm repo update
+helm install argocd argo/argo-cd -f values.yaml --namespace argocd --create-namespace --set global.domain=argocd.anakdevops.online
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+![image](status-port-argocd.png)
